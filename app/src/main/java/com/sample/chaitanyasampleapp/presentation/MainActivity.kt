@@ -36,18 +36,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
                 AppNavigation()
-
             }
         }
     }
 }
-
+/** Prepare the compose Navigation screen */
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
@@ -66,7 +64,7 @@ fun AppNavigation() {
         }
     }
 }
-
+/** Prepare the compose AppBar screen */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBar(title: String, icon: ImageVector, iconClickAction: () -> Unit) {

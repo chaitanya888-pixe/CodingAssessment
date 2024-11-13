@@ -22,7 +22,7 @@ import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.sample.chaitanyasampleapp.data.model.Article
 import com.sample.chaitanyasampleapp.presentation.AppBar
-
+/** Prepare the compose List Details screen */
 @Composable
 fun ListDetailScreen(selectedModel: Article, navController: NavHostController) {
     Scaffold(topBar = {

@@ -43,7 +43,7 @@ import com.sample.chaitanyasampleapp.R
 import com.sample.chaitanyasampleapp.data.model.Article
 import com.sample.chaitanyasampleapp.presentation.AppBar
 import com.sample.chaitanyasampleapp.presentation.viewmodel.MainViewModel
-
+/** Prepare the compose List screen */
 @Composable
 fun ListScreen(viewModel: MainViewModel = hiltViewModel(), navController: NavHostController) {
     val state by viewModel.state.collectAsState()
@@ -67,9 +67,7 @@ fun ListScreen(viewModel: MainViewModel = hiltViewModel(), navController: NavHos
                     state.error != null -> Text(
                         text = state.error!!,
                         color = Color.Red,
-                        modifier = Modifier.align(Alignment.Center)
-                    )
-
+                        modifier = Modifier.align(Alignment.Center))
                     else -> {
                         ListScreenData(articles = state.articles, navController,viewModel)
                     }
@@ -79,7 +77,7 @@ fun ListScreen(viewModel: MainViewModel = hiltViewModel(), navController: NavHos
     }
 
 }
-
+/** Set the compose List Data screen */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ListScreenData(
@@ -103,10 +101,9 @@ fun ListScreenData(
     }
 }
 
-
+/** Prepare the compose list item screen */
 @Composable
 fun ListItem(article: Article, onClick: () -> Unit) {
-
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -156,7 +153,7 @@ fun ListItem(article: Article, onClick: () -> Unit) {
         }
     }
 }
-
+/** Set the image data to list item */
 @Composable
 private fun SetImage(article: Article) {
     article.urlToImage?.let { imageUrl ->
@@ -165,8 +162,7 @@ private fun SetImage(article: Article) {
                 .data(imageUrl)
                 .placeholder(R.drawable.image_error)
                 .error(R.drawable.image_error)
-                .build()
-        )
+                .build())
 
         Image(
             painter = painter,
@@ -176,8 +172,6 @@ private fun SetImage(article: Article) {
                 .padding(4.dp)
                 .border(1.dp, Color.Gray, RoundedCornerShape(10))
         )
-
-
     }
 }
 

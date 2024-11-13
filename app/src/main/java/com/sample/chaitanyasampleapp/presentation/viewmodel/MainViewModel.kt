@@ -29,16 +29,15 @@ class MainViewModel @Inject constructor(
     private val _selectedArticle = MutableStateFlow<Article?>(null)
     var selectedArticle: StateFlow<Article?> = _selectedArticle
 
-
+/** Set Selected item model*/
     fun setSelectedData(article: Article) {
         _selectedArticle.value = article
-
     }
 
     init {
         fetchListData()
     }
-
+/** Fetch the list data*/
      fun fetchListData(country: String = DEFAULT_COUNTRY) {
         _state.value = _state.value.copy(isLoading = true)
         getListUseCase(country)
