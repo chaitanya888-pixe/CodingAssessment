@@ -27,27 +27,13 @@ class MainViewModel @Inject constructor(
     val state: StateFlow<DataState> = _state
 
     private val _selectedArticle = MutableStateFlow<Article?>(null)
-    val selectedArticle: StateFlow<Article?> = _selectedArticle
+    var selectedArticle: StateFlow<Article?> = _selectedArticle
 
-    private val articleFlowCache: MutableMap<String, Flow<Article?>> = mutableMapOf()
 
-    fun getArticleById(id: String) {
-        viewModelScope.launch {
-            val cachedFlow = articleFlowCache[id] ?: getArticleByIdFlow(id).also {
-                articleFlowCache[id] = it
-            }
+    fun setSelectedData(article: Article) {
+        _selectedArticle.value = article
 
-            cachedFlow.collect { article ->
-                _selectedArticle.value = article
-            }
-        }
     }
-
-    private fun getArticleByIdFlow(author: String): Flow<Article?> = flow {
-        /* Check the first matching article found or not*/
-        val article = _state.value.articles.firstOrNull { it.author == author }
-        emit(article)
-    }.shareIn(viewModelScope, SharingStarted.Lazily, replay = 1)
 
     init {
         fetchListData()

@@ -9,18 +9,23 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -31,9 +36,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
@@ -42,7 +51,7 @@ import com.sample.chaitanyasampleapp.R
 import com.sample.chaitanyasampleapp.data.model.Article
 import com.sample.chaitanyasampleapp.presentation.AppBar
 import com.sample.chaitanyasampleapp.presentation.viewmodel.MainViewModel
-
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 @Composable
 fun ListScreen(viewModel: MainViewModel = hiltViewModel(), navController: NavHostController) {
     val state by viewModel.state.collectAsState()
@@ -70,7 +79,7 @@ fun ListScreen(viewModel: MainViewModel = hiltViewModel(), navController: NavHos
                     )
 
                     else -> {
-                        ListScreenData(articles = state.articles, navController)
+                        ListScreenData(articles = state.articles, navController,viewModel)
                     }
                 }
             }
@@ -81,7 +90,11 @@ fun ListScreen(viewModel: MainViewModel = hiltViewModel(), navController: NavHos
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ListScreenData(articles: List<Article>, navController: NavHostController) {
+fun ListScreenData(
+    articles: List<Article>,
+    navController: NavHostController,
+    viewModel: MainViewModel
+) {
 
     LazyColumn(
         modifier = Modifier
@@ -91,8 +104,8 @@ fun ListScreenData(articles: List<Article>, navController: NavHostController) {
         items(articles) { article ->
             ListItem(article = article,
                 onClick = {
-                    // Navigate to the detail screen
-                    navController.navigate("detail/${article.author}")
+                    viewModel.setSelectedData(article)
+                    navController.navigate("detail")
                 })
         }
     }
@@ -101,7 +114,6 @@ fun ListScreenData(articles: List<Article>, navController: NavHostController) {
 
 @Composable
 fun ListItem(article: Article, onClick: () -> Unit) {
-    Log.e("DATA", article.title.toString())
 
     Box(
         modifier = Modifier
@@ -138,6 +150,7 @@ fun ListItem(article: Article, onClick: () -> Unit) {
                     )
                 }
 
+
             }
         }
     }
@@ -166,6 +179,9 @@ private fun SetImage(article: Article) {
 
     }
 }
+
+
+
 
 
 

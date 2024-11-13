@@ -57,17 +57,11 @@ fun AppNavigation() {
         composable("list") {
             ListScreen(viewModel, navController)
         }
-        composable("detail/{author}") { backStackEntry ->
-            val authorName = backStackEntry.arguments?.getString("author") ?: ""
-            viewModel.getArticleById(authorName)
+        composable("detail") {
             val selectedArticle by viewModel.selectedArticle.collectAsState()
-            if (selectedArticle == null) {
-                Text("No Data Found...")
-            } else {
-                selectedArticle?.let {
-                    ListDetailScreen(it, navController)
+            selectedArticle?.let {
+                ListDetailScreen(it, navController)
 
-                }
             }
         }
     }
