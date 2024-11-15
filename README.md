@@ -1,4 +1,4 @@
-# Sample Android Project
+# MVVM Clean Architecture Project
 
 This project demonstrates various Android development concepts using **Jetpack Compose**, **Retrofit**, and **Clean Architecture**. It displays a list of articles fetched from a public API along with detailed information about each article.
 
