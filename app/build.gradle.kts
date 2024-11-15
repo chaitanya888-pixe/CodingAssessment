@@ -30,6 +30,7 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "API_KEY", "\"538c416021af406d9d75dc4c04c93267\"")
+            buildConfigField("String","BASE_URL","\"https://newsapi.org/v2/\"")
         }
         release {
             isMinifyEnabled = false
@@ -38,6 +39,8 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "API_KEY", "\"538c416021af406d9d75dc4c04c93267\"")
+            buildConfigField("String","BASE_URL","\"https://api.themoviedb.org/3/\"")
+
         }
     }
     compileOptions {

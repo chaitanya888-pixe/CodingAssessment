@@ -1,4 +1,4 @@
-package com.sample.chaitanyasampleapp.presentation.ui
+package com.sample.chaitanyasampleapp.presentation.ui.views
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -47,9 +47,6 @@ import com.sample.chaitanyasampleapp.presentation.viewmodel.MainViewModel
 @Composable
 fun ListScreen(viewModel: MainViewModel = hiltViewModel(), navController: NavHostController) {
     val state by viewModel.state.collectAsState()
-    LaunchedEffect(Unit) {
-        if (state.articles.isEmpty()) viewModel.fetchListData()
-    }
     Scaffold(topBar = {
         AppBar(
             title = "List Data",

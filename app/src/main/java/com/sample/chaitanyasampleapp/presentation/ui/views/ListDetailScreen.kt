@@ -1,4 +1,4 @@
-package com.sample.chaitanyasampleapp.presentation.ui
+package com.sample.chaitanyasampleapp.presentation.ui.views
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

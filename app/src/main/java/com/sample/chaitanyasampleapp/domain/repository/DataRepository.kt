@@ -1,4 +1,4 @@
-package com.sample.chaitanyasampleapp.data.repository
+package com.sample.chaitanyasampleapp.domain.repository
 
 import com.sample.chaitanyasampleapp.data.model.Article
 import kotlinx.coroutines.flow.Flow

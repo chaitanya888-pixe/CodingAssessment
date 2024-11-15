@@ -1,4 +1,4 @@
-package com.sample.chaitanyasampleapp.ui.theme
+package com.sample.chaitanyasampleapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

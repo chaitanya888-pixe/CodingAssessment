@@ -2,10 +2,12 @@ package com.sample.chaitanyasampleapp
 
 import app.cash.turbine.test
 import com.sample.chaitanyasampleapp.data.model.fakeData
-import com.sample.chaitanyasampleapp.data.repository.DataRepository
+import com.sample.chaitanyasampleapp.domain.repository.DataRepository
 import com.sample.chaitanyasampleapp.domain.usecase.GetListUseCase
 import com.sample.chaitanyasampleapp.presentation.viewmodel.MainViewModel
 import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.mockk.every
@@ -68,6 +70,39 @@ class MainViewModelTest {
             viewModel.state.test {
                 with(awaitItem()) {
                     articles.shouldBe(fakeData)
+                    error.shouldBeNull()
+                    isLoading.shouldBeFalse()
+                }
+            }
+        }
+    }
+    @Test
+    fun `Get NewsArticles returns an error from API`() {
+        every { repository.getListData("us") } returns flow {
+            emit(Result.failure(Exception("Network Error")))
+        }
+        startTest {
+            initializeViewModel()
+            viewModel.state.test {
+                with(awaitItem()) {
+                    articles.shouldBeEmpty()
+                    error.shouldBe("Network Error")
+                    isLoading.shouldBeFalse()
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `Get NewsArticles returns empty data from API`() {
+        every { repository.getListData("us") } returns flow {
+            emit(Result.success(emptyList()))
+        }
+        startTest {
+            initializeViewModel()
+            viewModel.state.test {
+                with(awaitItem()) {
+                    articles.shouldBe(emptyList())
                     error.shouldBeNull()
                     isLoading.shouldBeFalse()
                 }

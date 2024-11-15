@@ -40,6 +40,7 @@ class MainViewModel @Inject constructor(
 /** Fetch the list data*/
      fun fetchListData(country: String = DEFAULT_COUNTRY) {
         _state.value = _state.value.copy(isLoading = true)
+    viewModelScope.launch {
         getListUseCase(country)
             .onEach { result ->
                 _state.value = when {
@@ -48,11 +49,13 @@ class MainViewModel @Inject constructor(
                             !article.urlToImage.isNullOrEmpty()
                         }
                         DataState(articles = filteredArticles)
-                        }
+                    }
+
                     else -> DataState(error = result.exceptionOrNull()?.message ?: "Unknown Error")
                 }
             }
             .launchIn(viewModelScope)
+      }
     }
 }
 

@@ -1,6 +1,5 @@
-package com.sample.chaitanyasampleapp.ui.theme
+package com.sample.chaitanyasampleapp.presentation.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
